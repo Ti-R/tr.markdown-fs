@@ -1,0 +1,44 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="../tr.markdown-fs.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/vs2015.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+  
+</head>
+<body>
+
+<div id="demo">
+</div>
+
+
+</body>
+
+<script>
+
+var fileToLoad =  window.location.protocol + "//" + window.location.host + "/" + window.location.pathname +  "/../../README.md"
+
+// Get the file with jquery 
+$.get( fileToLoad, {dataType:"text"}).done( function( data ) {
+	
+	var options = {};
+	
+	// Filter code to add highlight
+	options.FilterCodes = function ( _code, _codeType){
+	    if (_codeType != '' && hljs.getLanguage(_codeType)) {
+	        return '<pre><code class="'+_codeType+' hljs">' + hljs.highlight(_codeType, _code).value + '</code></pre>';
+    	}
+		return '<pre>'+this.EscapeHtmlFct(_code)+'</pre>';
+	}
+	
+	var markdownFSTest = new TR.MarkdownFS(options);
+	var result = markdownFSTest.toHtml(data);
+	$("#demo").html(result);
+});
+
+
+</script>
+</html>

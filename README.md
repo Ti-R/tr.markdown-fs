@@ -1,8 +1,3 @@
-<style>
-green { color: green }
-orange { color: orange }
-red { color: red }
-</style>
 
 # Markdown FS
 Fast and Small markdown parser.

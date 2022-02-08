@@ -20,7 +20,7 @@ You can test it on my website.
 [www.ti-r.com (Articles)](https://www.ti-r.com/?js/Web/Markdown)
 
 # Speed
-Markdown-FS is more than 2 time faster than the fastest and 16 time faster the slower with Chrome and Firefox.
+Markdown-FS is more than 2 time faster than the fastest and 16 time faster compare to the slower with Chrome and Firefox.
 
 | 			   	         	| Chrome 66 							  | Firefox 96.0.1 				|
 | :-- | --: | --: |

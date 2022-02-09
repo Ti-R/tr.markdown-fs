@@ -156,12 +156,6 @@ TR.MarkdownFSGlobal = new function(){
 			return gConvertMap['<'];
 		});
 
-		// Escape all html need to be escape by \<
-		_text = _text.replace(/<(*.?)>/g, function(_string, _c){
-			console.log('html');
-			return '';
-		});
-
 		// Code escape sentence (special for display `)
 		_text = _text.replace(/\`{4}(.*?)\`{4}/g, function(_string, _textFound){
 		

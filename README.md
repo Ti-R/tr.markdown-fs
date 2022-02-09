@@ -56,15 +56,15 @@ This was not took into account on benchmark test.
 It is very easy to integrate highlighter.
 
  1) Include the file inside html, or load it from javascript
-	~~~html
+~~~html
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 	<script>hljs.initHighlightingOnLoad();</script>
-	~~~
+~~~
 
  2) Tell Markdown-FS to use it.
 
-	~~~javascript
+~~~javascript
 	var options = {};
 	options.FilterCodes = function ( _code, _codeType){
 	    if (_codeType != '' && hljs.getLanguage(_codeType)) {
@@ -75,7 +75,7 @@ It is very easy to integrate highlighter.
 	
 	var markdownFS = new TR.MarkdownFS(options);
 	var resultHtml = markdownFS.toHtml(data);
-	~~~
+~~~
 
 Check demos/demo-highlight.html
 
@@ -83,24 +83,24 @@ Check demos/demo-highlight.html
 # How to use it
  - Html:
 	You just need to include the file.
-	~~~html
+~~~html
 	  <script language="JavaScript" src="tr.markdown-parser.min.js"></script>
-	~~~
+~~~
 
  - Javascript:
   - The library contain 2 functions
 
    * toHtml: to load a single js dynamically
 
-	~~~javascript
+~~~javascript
 		function CallBackWhenDoneJS()
 		{}
 		TR.LoadJS('script1.js', CallBackWhenDoneJS);
-	~~~
+~~~
 	 
    * convertToId: to load several css and/or js dynamically
 	
-	~~~javascript
+~~~javascript
 		// TR.LoadJSAndCSS
 		var tListJStoLoad  = [ 'script1.js', 'script2.js', 'script3.js' ];
 		var tListCSStoLoad = [ 'link1.css', 'link2.css' ];
@@ -113,7 +113,7 @@ Check demos/demo-highlight.html
 		
 		// tListJStoLoad or tListCSStoLoad can be undefined
 		TR.LoadJSAndCSS(tListJStoLoad, tListCSStoLoad, CallBackWhenDone, CallBackPercentage);
-	~~~
+~~~
 
 # Support
 |Type								|Support											   |Type form								| html 																|
@@ -190,6 +190,18 @@ Check demos/demo-highlight.html
 !v[Video](https://ti-r.com/download/videos/ET_Return.mp4){width:300px;text-align:center}
 
 ## Add iFrame (optionable)
+
+Demo: `demos/demo-filter-iframe.html`
+
+Filter code to remove iframe
+
+~~~javascript
+	var options = {};
+	
+	// Filter code to remove iframe
+	options.iFrameAllowed = false;
+~~~
+
 ### Insert iFrame
 ~~~markdown
 !f[iFrame](https://www.youtube.com/embed/j-mk1boVuLY)

@@ -1,3 +1,4 @@
+// Renan LAVAREC - Ti-R - MIT License
 
 // Namespace TR
 if( TR == undefined )
@@ -155,6 +156,12 @@ TR.MarkdownFSGlobal = new function(){
 			return gConvertMap['<'];
 		});
 
+		// Escape all html need to be escape by \<
+		_text = _text.replace(/<(*.?)>/g, function(_string, _c){
+			console.log('html');
+			return '';
+		});
+
 		// Code escape sentence (special for display `)
 		_text = _text.replace(/\`{4}(.*?)\`{4}/g, function(_string, _textFound){
 		
@@ -234,7 +241,10 @@ TR.MarkdownFSGlobal = new function(){
 				// Video - iframe
 				// !f[Alt text](https://www.youtube.com/embed/code "a title"){width:560px;height:350px}
 
-				_markdownObj.mListIFrame.push('<span '+tStyle.parent+'><iframe type="text/html" title="'+_text_r+'"'+tStyle.child+' src="'+_url+'?enablejsapi=1" frameborder="0" allowfullscreen sandbox="allow-scripts allow-same-origin allow-presentation"></iframe></span>');
+				if(_markdownObj.mOptions.iFrameAllowed)
+					_markdownObj.mListIFrame.push('<span '+tStyle.parent+'><iframe type="text/html" title="'+_text_r+'"'+tStyle.child+' src="'+_url+'?enablejsapi=1" frameborder="0" allowfullscreen sandbox="allow-scripts allow-same-origin allow-presentation"></iframe></span>');
+				else
+					_markdownObj.mListIFrame.push('');
 				return '¤ifr¤';
 			}
 		});
@@ -1340,6 +1350,9 @@ TR.MarkdownFS = function( options )
 	
 	// Timing
 	tThis.mOptions.Timing = false;
+	
+	// iFrame Allowed
+	tThis.mOptions.iFrameAllowed = true;
 	
 	// Filter Code
 	tThis.mOptions.FilterCodes = function ( _code, _codeType){ return '<pre>'+TR.MarkdownFSGlobal.EscapeHtmlFct(_code)+'</pre>';  };

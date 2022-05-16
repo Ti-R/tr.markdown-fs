@@ -22,12 +22,12 @@ You can test it on my website.
 # Speed
 Markdown-FS is more than 2 time faster than the fastest and 16 time faster compare to the slower with Chrome and Firefox.
 
-| 			   	         	| Chrome 66 							  | Firefox 96.0.1 				|
+| 			   	         	| Chrome 101 							  | Firefox 96.0.1 				|
 | :-- | --: | --: |
-| **markdown-fs.js (1.1.0)**	| <green>**1,157 ops/sec**</green>  ±0.48% (65 runs sampled)   | <green>**708 ops/sec**</green> +-7.81% (54 runs sampled) |
-| commonmark.js	 (0.29.3)	| <orange>628 ops/sec </orange> ±1.47% (64 runs sampled) | <orange>305 ops/sec ±2.54%</orange> (52 runs sampled) |
-| markdown-it.js (12.3.2)	| <orange>456 ops/sec</orange> ±0.40% (63 runs sampled) | <orange>288 ops/sec ±1.64%</orange> (53 runs sampled) |
-| showdown.js	(1.9.1)	    | <red> 71.02 ops/sec </red> ±1.71% (54 runs sampled) | <red>59.25 ops/sec ±2.22%</red> (46 runs sampled) |
+| **markdown-fs.js (1.1.0)**	| <green>**1,076 ops/sec**</green>  ±0.59% (43 runs sampled)   | <green>**708 ops/sec**</green> +-7.81% (54 runs sampled) |
+| commonmark.js	 (0.29.3)	| <orange>567 ops/sec </orange> ±0.90% (40 runs sampled) | <orange>305 ops/sec ±2.54%</orange> (52 runs sampled) |
+| markdown-it.js (12.3.2)	| <orange>442 ops/sec</orange> ±1.95% (39 runs sampled) | <orange>288 ops/sec ±1.64%</orange> (53 runs sampled) |
+| showdown.js	(1.9.1)	    | <red> 67.56 ops/sec </red> ±1.49% (39 runs sampled) | <red>59.25 ops/sec ±2.22%</red> (46 runs sampled) |
 
 **How the bench was made ?**
 
@@ -51,6 +51,40 @@ This was not took into account on benchmark test.
 
 
 
+# How to use it
+ - Html:
+	You just need to include the file.
+~~~html
+	<script src="tr.markdown-fs.min.js" type="text/javascript"></script>
+~~~
+
+ - Javascript:
+	Download the README.md and let Markdown decode it.
+
+~~~javascript
+	const fileToLoad = "https://raw.githubusercontent.com/Ti-R/tr.markdown-fs/main/README.md";
+	
+	// Get the file with jquery 
+	$.get( fileToLoad, {dataType:"text"}).done( function( data ) {
+		
+		// Set options
+		let options = {};
+		
+		// Filter code to remove iframe
+		options.iFrameAllowed = false;
+		
+		// Create the object to decode to html
+		const markdownFSTest = new TR.MarkdownFS(options);
+		
+		// Get html result from markdown
+		const result = markdownFSTest.toHtml(data);
+		
+		// Display it
+		$("#demo").html(result);
+	});
+~~~
+
+
 # Syntax highlighting
 
 It is very easy to integrate highlighter.
@@ -65,55 +99,28 @@ It is very easy to integrate highlighter.
  2) Tell Markdown-FS to use it.
 
 ~~~javascript
-	var options = {};
+	// Set options
+	let options = {};
+	
+	// Set the function to call when code chapters are detected
 	options.FilterCodes = function ( _code, _codeType){
-	    if (_codeType != '' && hljs.getLanguage(_codeType)) {
-	        return '<pre><code class="'+_codeType+' hljs">' + hljs.highlight(_codeType, _code).value + '</code></pre>';
-    	}
+		if (_codeType != '' && hljs.getLanguage(_codeType)) {
+			return '<pre><code class="'+_codeType+' hljs">' + hljs.highlight(_codeType, _code).value + '</code></pre>';
+		}
+		
+		// If no language found, do not highlight it.
 		return '<pre>'+this.EscapeHtmlFct(_code)+'</pre>';
 	}
 	
-	var markdownFS = new TR.MarkdownFS(options);
-	var resultHtml = markdownFS.toHtml(data);
+	// Create the object to decode to html
+	const markdownFS = new TR.MarkdownFS(options);
+	
+	// Get html result from markdown
+	const resultHtml = markdownFS.toHtml(data);
 ~~~
 
 Check demos/demo-highlight.html
 
-
-# How to use it
- - Html:
-	You just need to include the file.
-~~~html
-	  <script language="JavaScript" src="tr.markdown-parser.min.js"></script>
-~~~
-
- - Javascript:
-  - The library contain 2 functions
-
-   * toHtml: to load a single js dynamically
-
-~~~javascript
-		function CallBackWhenDoneJS()
-		{}
-		TR.LoadJS('script1.js', CallBackWhenDoneJS);
-~~~
-	 
-   * convertToId: to load several css and/or js dynamically
-	
-~~~javascript
-		// TR.LoadJSAndCSS
-		var tListJStoLoad  = [ 'script1.js', 'script2.js', 'script3.js' ];
-		var tListCSStoLoad = [ 'link1.css', 'link2.css' ];
-		
-		function CallBackWhenDone()
-		{}
-		
-		function CallBackPercentage( _percentage )
-		{}
-		
-		// tListJStoLoad or tListCSStoLoad can be undefined
-		TR.LoadJSAndCSS(tListJStoLoad, tListCSStoLoad, CallBackWhenDone, CallBackPercentage);
-~~~
 
 # Support
 |Type								|Support											   |Type form								| html 																|
@@ -196,7 +203,7 @@ Demo: `demos/demo-filter-iframe.html`
 Filter code to remove iframe
 
 ~~~javascript
-	var options = {};
+	let options = {};
 	
 	// Filter code to remove iframe
 	options.iFrameAllowed = false;

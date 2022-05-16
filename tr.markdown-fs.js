@@ -1498,7 +1498,7 @@ TR.MarkdownFS.prototype.toHtml = function( _data )
 	{
 		tStart = performance.now();
 	}
-	
+
 	let tLines = _data.split('\n');
 	let tGlobal = TR.MarkdownFSGlobal;
 	

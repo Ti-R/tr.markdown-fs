@@ -16,18 +16,18 @@
 
 <script>
 
-var fileToLoad =  window.location.protocol + "//" + window.location.host + "/" + window.location.pathname +  "/../../README.md"
+const fileToLoad =  "https://raw.githubusercontent.com/Ti-R/tr.markdown-fs/main/README.md"
 
 // Get the file with jquery 
 $.get( fileToLoad, {dataType:"text"}).done( function( data ) {
 	
-	var options = {};
+	let options = {};
 	
 	// Filter code to remove iframe
 	options.iFrameAllowed = false;
 	
-	var markdownFSTest = new TR.MarkdownFS(options);
-	var result = markdownFSTest.toHtml(data);
+	const markdownFSTest = new TR.MarkdownFS(options);
+	const result = markdownFSTest.toHtml(data);
 	$("#demo").html(result);
 });
 
